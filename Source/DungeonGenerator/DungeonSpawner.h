@@ -8,6 +8,7 @@
 
 class ARB_Room1;
 class ARoomBase;
+class AItemBase;
 class AClosingWallBase;
 
 UCLASS()
@@ -32,9 +33,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Rooms")
 	int roomAmount;
 
+
 	TArray<USceneComponent*> Exits;
 
 	ARoomBase* SpawnedRoom;
+
+	UPROPERTY(EditAnywhere, Category = "Spawning")
+	TSubclassOf<AItemBase> CoinClass;
 
 protected:
 	virtual void BeginPlay() override;

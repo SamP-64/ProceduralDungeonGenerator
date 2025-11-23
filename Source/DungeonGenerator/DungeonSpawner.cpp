@@ -1,6 +1,7 @@
 #include "DungeonSpawner.h"
 #include "RB_Room1.h"
 #include "RoomBase.h"
+#include "ItemBase.h"
 #include "ClosingWallBase.h"
 
 #include "Components/BoxComponent.h"
@@ -41,6 +42,16 @@ void ADungeonSpawner::SpawnNexRoom()
 		TArray<USceneComponent*> LatestRoomExits;
 		SpawnedRoom->ExitFolder->GetChildrenComponents(false, LatestRoomExits);
 		Exits.Append(LatestRoomExits); // Adds latest rooms exits to the array
+
+		// Decide whether to spawn a coin
+		if (FMath::FRand() < 0.3f) // 30% chance
+		{
+			FVector SpawnLocation = SpawnedRoom->GetActorLocation() + FVector(0, -500, 200); // slightly above floor
+			FRotator SpawnRotation = FRotator::ZeroRotator;
+
+			GetWorld()->SpawnActor<AItemBase>(CoinClass, SpawnLocation, SpawnRotation);
+		}
+
 	}
 
 	roomAmount = roomAmount - 1;
